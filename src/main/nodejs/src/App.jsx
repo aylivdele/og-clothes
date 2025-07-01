@@ -1,10 +1,16 @@
+import { Routes, Route } from 'react-router-dom';
+import Navbar from "../components/Navbar";
+import Slider from "../components/Slider"
+import '../css/style.css';
+
 import './App.css';
 
 const App = () => {
   return (
-    <div className="content">
-      <h1>Rsbuild with React</h1>
-      <p>Start building amazing things with Rsbuild.</p>
+    <div className='app'>
+      <Navbar/>
+      <Slider/>
+      {/* <Stories/> */}
     </div>
   );
 };
