@@ -13,7 +13,7 @@ const Navbar = () => {
         БЕСПЛАТНАЯ ДОСТАВКА ПРИ ЗАКАЗЕ ОТ 10 000 РУБЛЕЙ
       </div>
 
-       <div className='lpppl'>
+       <div className='header-block_container'>
         <div className="search">
           <div className="search-container">
             <input
@@ -25,7 +25,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Icons */}
+        {/* Иконки из библиотеки include */}
         <div className="icons-type">
           <Heart className='' size={35} />
           <ShoppingCart size={35} />
