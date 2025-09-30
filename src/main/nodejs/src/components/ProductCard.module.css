@@ -1,0 +1,148 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.imageContainer {
+  position: relative;
+  padding: 12px;
+  background: #ffffff;
+  aspect-ratio: 1 / 1; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+  user-select: none;
+  pointer-events: none;
+}
+
+.imageIndicators {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+  z-index: 2;
+}
+
+.indicator {
+  width: 20px;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  border-radius: 1px;
+}
+
+.activeIndicator {
+  background: rgba(0, 0, 0, 0.8);
+  height: 2px;
+}
+
+.discount {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #ff4444;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.info {
+  padding: 10px 12px 12px;
+  background: white;
+  flex-shrink: 0; 
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+  min-height: 32px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.priceLabel {
+  font-size: 11px;
+  color: #999;
+  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+}
+
+.price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-family: "Days One", sans-serif;
+}
+
+.oldPrice {
+  font-size: 13px;
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 4px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .imageContainer {
+    padding: 8px;
+  }
+  
+  .info {
+    padding: 8px;
+  }
+  
+  .title {
+    font-size: 12px;
+    min-height: 28px;
+  }
+  
+  .price {
+    font-size: 14px;
+  }
+}
+
+
+
+  

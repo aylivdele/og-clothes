@@ -1,17 +1,21 @@
 // import React from 'react';
 // import ReactDOM from 'react-dom/client';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import "../css/reset.css"
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import App from "./App";
+import "./css/reset.css";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// Помещаем гугл токен в ClientID
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
- <React.StrictMode>
+  <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <GoogleOAuthProvider clientId="GOOGLE_CLIENT_ID"> 
+        <App />
+      </GoogleOAuthProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

@@ -2,7 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Days+One&family=Dela+Gothic+One&family=Oswald:wght@200..700&family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Beastly&family=Rubik+Bubbles&family=Rubik+Glitch&family=Rubik+Mono+One&family=Rubik+Wet+Paint&family=Russo+One&display=swap');
+/* Основные шрифты начало */
+.roboto-uniquifier {
+  font-family: "Roboto", sans-serif;
+}
+
+.days-one-regular {
+  font-family: "Days One", sans-serif;
+}
+/* Основные шрифты конец */
+
+.oswald-uniquifier {
+  font-family: "Oswald", sans-serif;
+}
+
+.dela-gothic-one-regular {
+  font-family: "Dela Gothic One", sans-serif;
+}
+
+.rubik-mono-one-regular {
+  font-family: "Rubik Mono One", monospace;
+}
+
+.russo-one-regular {
+  font-family: "Russo One", sans-serif;
+}
+
+.press-start-2p-regular {
+  font-family: "Press Start 2P", system-ui;
+}
+
+.rubik-bubbles-regular {
+  font-family: "Rubik Bubbles", system-ui;
+}
+
+
+
+.rubik-glitch-regular {
+  font-family: "Rubik Glitch", system-ui;
+}
+.rubik-wet-paint-regular {
+  font-family: "Rubik Wet Paint", system-ui;
+}
+
+.rubik-beastly-regular {
+  font-family: "Rubik Beastly", system-ui;
+}
 
 /* стили шапки сайта начало  */
 .header {
@@ -158,13 +205,15 @@
 .card-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Равномерное распределение */
-  gap: 1.5rem;
+  gap: 2.5rem;
   max-width: 1700px;
   margin: 0 auto;
   padding: 2rem;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
   margin-top: 2rem;
+  background-color: #0674c2;
+  border-radius: 30px;
 }
 
 .card {
@@ -172,8 +221,8 @@
   display: flex;
   flex-direction: column;
   height: 580px; /* Высота прямоугольника */
-  border: 1px solid #000;
-  border-radius: 10px;
+  border: 3px solid #7d7d7d60;
+  border-radius: 25px;
   padding: 1.8rem;
   background-color: #f9f9f9;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -228,8 +277,8 @@
   color: #fff;
   padding: 0.9rem 1.8rem;
   border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
+  border-radius: 15px;
+  font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -237,6 +286,8 @@
   width: 85%;
   align-self: center;
   text-align: center;
+  position: absolute;
+  bottom: -25px;
 }
 
 .card-button:hover {
@@ -253,7 +304,7 @@
 /* Адаптация для ноутбуков */
 @media (max-width: 1280px) {
   .card-wrapper {
-    gap: 1.3rem;
+    gap: 2.3rem;
     padding: 1.8rem;
   }
   
@@ -329,5 +380,136 @@
 }
 
 /* стили блока с карточками на главном экране конец */
+
+/* Стили подвала сайта начало */
+/* Footer.css */
+.footer {
+ background-color: #000000;
+ padding: 40px 0;
+ font-family: 'Roboto', sans-serif;
+ margin-top: 10px;
+}
+
+.container {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 15px;
+ display: flex;
+ justify-content: space-between;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+ flex: 1;
+ margin-bottom: 30px;
+}
+
+.footer h3 {
+ color: #ffffff;
+ margin-bottom: 20px;
+ font-size: 18px;
+}
+
+.link {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.footer li {
+ margin-bottom: 10px;
+}
+
+.footer .link {
+ color: #666;
+ text-decoration: none;
+ transition: color 0.3s;
+}
+
+.footer .link:hover {
+ color: #007bff;
+}
+
+.footer-bottom {
+ background-color: #f0f0f0;
+ padding: 20px 0;
+ text-align: center;
+ margin-top: 30px;
+}
+
+.footer-logo h2 {
+  font-size: 20px;
+  font-weight: 900;
+  color: rgba(118, 118, 118, 0.693);
+  margin-top: -3px;
+}
+
+.footer-logo p {
+  color: white;
+}
+
+.footer-contact a {
+  color: #fff;
+  margin-top: 5px;
+  display: block;
+  align-items: center;
+  margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.footer-contact span {
+  color: #fff;
+  margin-top: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-payment {
+  margin-top: 25px;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+ .container {
+ flex-direction: column;
+ }
+
+ .footer-left,
+ .footer-center,
+ .footer-right {
+ margin-bottom: 20px;
+ }
+}
+
+@media (max-width: 768px) {
+ .footer {
+ padding: 25px 0;
+ }
+
+ .footer h3 {
+ font-size: 16px;
+ }
+
+ .footer li {
+ margin-bottom: 8px;
+ }
+}
+
+/* Стили подвала сайта конец */
+
+.swiper-pagination-bullet-active {
+    opacity: var(--swiper-pagination-bullet-opacity, 1);
+    background: black;
+}
+
+.swiper-pagination-bullet {
+    width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 15px));
+    height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 15px));
+}
+
+.swiper {
+    width: 100%;
+    height: 75vh;
+}
 
 

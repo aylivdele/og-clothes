@@ -1,0 +1,470 @@
+
+.cart_dialog {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 400px;
+    height: 100%;
+    z-index: 10001;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    font-family: "Roboto", sans-serif;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .cart {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    visibility: hidden;
+    z-index: 10000;
+  }
+  
+  .cart:before {
+    content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 9999;
+  }
+  
+  .cart.open {
+    visibility: visible;
+  }
+  
+  .cart.open:before {
+    opacity: 1;
+  }
+  
+  .cart.open .cart_dialog {
+    transform: translateX(0);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fafafa;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .close_button {
+    position: fixed;
+  top: 50%;
+  right: 400px;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  font-family: "Roboto", sans-serif;
+  font-size: 45px;
+  z-index: 10002;
+  }
+  
+  .close_button:hover {
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  
+  .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 20px;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .summary {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 20px 0 15px;
+    color: #333;
+    padding: 12px 15px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .empty {
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 20px auto;
+    padding: 30px 20px;
+    border-radius: 12px;
+    color: #666;
+    font-size: 15px;
+    max-width: 280px;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .items {
+    overflow-y: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex-grow: 1;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .item {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid #e8e8e8;
+    gap: 15px;
+    transition: background-color 0.2s ease;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .item:hover {
+    background-color: #fafafa;
+  }
+  
+  .item:last-child {
+    border-bottom: none;
+  }
+  
+  .image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .image:hover {
+    transform: scale(1.05);
+  }
+  
+  .item_info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .delete {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .delete:hover {
+    background-color: #ffebee;
+    color: #ef5350;
+  }
+  
+  .details {
+    margin-bottom: 12px;
+    padding-right: 30px;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .item_name {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 6px 0;
+    color: #333;
+    line-height: 1.4;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .item_brand {
+    font-size: 12px;
+    color: #888;
+    margin: 0 0 4px 0;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .item_size,
+  .item_color {
+    font-size: 11px;
+    color: #999;
+    margin: 2px 0;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .price_and_counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .item_price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .counter {
+    display: flex;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    overflow: hidden;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .counter button {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    transition: all 0.2s ease;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .counter button:hover {
+    background-color: #e8e8e8;
+    color: #333;
+  }
+  
+  .counter span {
+    min-width: 36px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    background: white;
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .footer {
+    padding: 20px;
+    border-top: 2px solid #e8e8e8;
+    background: white;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .total_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .total_label {
+    font-size: 15px;
+    color: #666;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .total_price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .checkout {
+    width: 100%;
+    padding: 16px;
+    background-color: #01a1be;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    font-family: "Roboto", sans-serif;
+    letter-spacing: 0.5px;
+  }
+  
+  .checkout:hover {
+    background-color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  .checkout svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Скроллбар */
+  .content::-webkit-scrollbar,
+  .items::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .content::-webkit-scrollbar-track,
+  .items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .content::-webkit-scrollbar-thumb,
+  .items::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+  }
+  
+  .content::-webkit-scrollbar-thumb:hover,
+  .items::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+  
+  /* Адаптив */
+  @media (max-width: 768px) {
+    .cart_dialog {
+      width: 100%;
+      max-width: 100%;
+    }
+  
+    .header {
+      padding: 15px;
+    }
+  
+    .header h2 {
+      font-size: 18px;
+    }
+  
+    .content {
+      padding: 0 15px;
+    }
+  
+    .image {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .item_name {
+      font-size: 13px;
+    }
+  
+    .item_brand {
+      font-size: 11px;
+    }
+  
+    .item_price {
+      font-size: 15px;
+    }
+  
+    .total_price {
+      font-size: 20px;
+    }
+  
+    .checkout {
+      font-size: 15px;
+      padding: 14px;
+    }
+  
+    .footer {
+      padding: 15px;
+    }
+
+    .close_button {
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        color: #000;
+        padding-top: 12px;
+      }
+      
+      .close_button:hover {
+        transform: scale(1.1);
+      }
+  }
+  
+  @media (max-width: 480px) {
+    .cart_dialog {
+      width: 100%;
+    }
+    
+    .item {
+      padding: 15px 0;
+    }
+  
+    .counter button {
+      width: 28px;
+      height: 28px;
+      font-size: 16px;
+    }
+  
+    .counter span {
+      min-width: 32px;
+      height: 28px;
+      font-size: 13px;
+    }
+
+    .close_button {
+        top: 15px;
+        right: 15px;
+        font-size: 30px;
+        padding-top: 18px;
+      }
+  }
+  
