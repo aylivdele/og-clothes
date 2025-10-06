@@ -1,0 +1,443 @@
+.sliderContainer {
+    width: 100%;
+    height: 100vh;
+    background: #1a1a2e !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    background: #1a1a2e;
+  }
+  
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .slideContent {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
+    gap: 60px;
+  }
+  
+  /* Левая часть с текстом */
+  .leftSection {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .subtitle {
+    font-family: "Sora", sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: none;
+    text-decoration: none;
+    letter-spacing: -1px;
+    line-height: 45px;
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+    /* margin: 0px 0px 30px; */
+    padding: 0px;
+    width: auto;
+    height: auto;
+    float: none;
+    clear: none;
+    position: relative;
+    vertical-align: inherit;
+    transform-origin: 50% 50%;
+    display: block;
+    translate: none;
+    rotate: none;
+    scale: none;
+    visibility: inherit;
+    opacity: 1;
+    transform: translate(0px, 0px);
+    pointer-events: auto;
+    z-index: 10;
+    background: transparent;
+  }
+  
+  .title {
+    font-family: "Sora", sans-serif;
+    font-size: 90px;
+    font-weight: 400;
+    color: rgb(255, 255, 255);
+    text-transform: none;
+    text-decoration: none;
+    letter-spacing: -4px;
+    line-height: 90px;
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+    height: auto;
+    float: none;
+    clear: none;
+    z-index: 9;
+    position: relative;
+    vertical-align: inherit;
+    transform-origin: 50% 50%;
+    display: block;
+    translate: none;
+    rotate: none;
+    scale: none;
+    visibility: inherit;
+    opacity: 1;
+    transform: translate(0px, 0px);
+    pointer-events: auto;
+    background: transparent;
+  }
+  
+  .description {
+    font-family: "Sora", sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: rgb(255, 255, 255);
+    text-transform: none;
+    text-decoration: none;
+    letter-spacing: -1px;
+    line-height: 45px;
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+    margin: 0px;
+    /* padding: 30px 150px 50px 0px; */
+    width: auto;
+    height: auto;
+    float: none;
+    clear: none;
+    z-index: 8;
+    position: relative;
+    vertical-align: inherit;
+    transform-origin: 50% 50%;
+    display: block;
+    translate: none;
+    rotate: none;
+    scale: none;
+    visibility: inherit;
+    opacity: 1;
+    transform: translate(0px, 0px);
+    pointer-events: auto;
+    background: transparent;
+  }
+  
+  .ctaButton {
+    font-family: "Sora", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0px;
+    line-height: 80px;
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+    margin: 0px;
+    padding: 0px 80px;
+    max-width: 350px;
+    width: 100%;
+    height: auto;
+    float: none;
+    clear: none;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(0, 255, 227);
+    z-index: 7;
+    border-radius: 50px;
+    position: relative;
+    vertical-align: inherit;
+    transform-origin: 50% 50%;
+    display: inline-block;
+    translate: none;
+    rotate: none;
+    scale: none;
+    visibility: inherit;
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+    pointer-events: auto;
+    min-height: 0px;
+    background: rgb(0, 255, 227);
+  }
+  
+  .ctaButton:hover {
+    background: #00b8e6;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+  }
+  
+  /* Правая часть с изображением */
+  .rightSection {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    overflow: hidden; /* Добавлено для скрытия анимации */
+  }
+  
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideIn 0.6s ease-out forwards;
+  }
+  
+  .mainImage {
+    width: 100%;
+    height: 125%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    transition: transform 0.6s ease-out;
+  }
+
+  :global(.swiper-slide-active) .mainImage {
+    transform: scale(1);
+  }
+  
+  :global(.swiper-slide-prev) .mainImage,
+  :global(.swiper-slide-next) .mainImage {
+    transform: scale(0.95);
+  }
+  
+  .imageCaption {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+    border: 2px solid #00d4ff;
+    color: #00d4ff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    background: rgba(26, 26, 46, 0.7);
+    white-space: nowrap;
+    transition: all 0.4s ease-out;
+  }
+
+  :global(.swiper-slide-active) .imageCaption {
+    animation: slideUp 0.8s ease-out forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Плавная смена слайдов */
+  :global(.swiper-wrapper) {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Убираем анимацию при загрузке страницы */
+  :global(.swiper-slide:not(.swiper-slide-active)) .leftSection > * {
+    opacity: 0;
+  }
+  
+  /* Навигация */
+  .navigationContainer {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 10;
+  }
+  
+  .navButton {
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .navButton:hover {
+    border-color: #00d4ff;
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.1);
+  }
+  
+  /* Swiper пагинация */
+  :global(.swiper-pagination) {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    width: auto;
+  }
+  
+  :global(.swiper-pagination-bullet) {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    opacity: 1;
+    margin: 0 6px;
+  }
+  
+  :global(.swiper-pagination-bullet-active) {
+    background: #00d4ff;
+    width: 30px;
+    border-radius: 5px;
+  }
+
+
+  /* Анимация ухода изображения */
+@keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+  }
+  
+  /* Стили для активного слайда */
+  :global(.swiper-slide-active) .imageWrapper {
+    animation: slideIn 0.6s ease-out forwards;
+  }
+  
+  :global(.swiper-slide-prev) .imageWrapper {
+    animation: slideOut 0.6s ease-out forwards;
+  }
+  
+  /* Добавим анимацию для текстового контента */
+  :global(.swiper-slide-active) .leftSection {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Последовательная анимация элементов левой секции */
+  :global(.swiper-slide-active) .subtitle {
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.1s;
+    opacity: 0;
+  }
+  
+  :global(.swiper-slide-active) .title {
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+  }
+  
+  :global(.swiper-slide-active) .description {
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+  
+  :global(.swiper-slide-active) .ctaButton {
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+  }
+  
+  /* Адаптив для планшетов */
+  @media (max-width: 1024px) {
+    .slideContent {
+      padding: 0 40px;
+      gap: 40px;
+    }
+  
+    .title {
+      font-size: clamp(32px, 4vw, 56px);
+    }
+  
+    .description {
+      font-size: 18px;
+    }
+  }
+  
+  /* Адаптив для мобильных */
+  @media (max-width: 768px) {
+    .slideContent {
+      flex-direction: column;
+      padding: 60px 20px;
+      gap: 30px;
+    }
+  
+    .leftSection {
+      max-width: 100%;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .rightSection {
+      width: 100%;
+      height: 50vh;
+    }
+  
+    .imageWrapper {
+      height: 100%;
+    }
+  
+    .navigationContainer {
+      bottom: 100px;
+      right: 50%;
+      top: auto;
+      transform: translateX(50%);
+      flex-direction: row;
+    }
+  
+    :global(.swiper-pagination) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+        left: 50% !important;
+    }
+  }
+  
