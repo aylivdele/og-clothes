@@ -1,5 +1,7 @@
 // Относится ко всему каталогу и фильтрам
-import React, { useState, useEffect, useMemo } from "react";
+// src/pages/ProductsPage.tsx
+
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import styles from "./ProductsPage.module.css";
 import FilterSidebar from "../components/FilterSidebar";
@@ -7,13 +9,14 @@ import ProductCard from "../components/ProductCard";
 import SortDropdown from "../components/SortDropdown";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { products } from "../data/ProductsData";
+import { categoriesData } from "../data/categoriesData";
 import {
   shoesFilters,
   clothingFilters,
   accessoriesFilters,
 } from "../data/FilterProduct";
 import { Product } from "../data/ProductsData";
-import { Filter as FilterIcon, X } from "lucide-react";
+import { Filter as FilterIcon, X, SlidersHorizontal, ArrowUpDown } from "lucide-react";
 
 interface FilterState {
   priceRange: [number, number];
@@ -24,8 +27,14 @@ interface FilterState {
 }
 
 const ProductsPage: React.FC = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category") || "shoes";
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(
+    searchParams.get("subcategory")
+  );
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showLeftGradient, setShowLeftGradient] = useState(false);
+  const [showRightGradient, setShowRightGradient] = useState(true);
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
   const [sortBy, setSortBy] = useState<string>("popular");
@@ -38,6 +47,54 @@ const ProductsPage: React.FC = () => {
     sizes: [],
   });
 
+  useEffect(() => {
+    if (showMobileFilter) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showMobileFilter]);
+
+  const currentSubcategories = useMemo(() => {
+    switch(category) {
+      case 'shoes':
+        return categoriesData.shoes;
+      case 'clothing':
+        return categoriesData.clothing;
+      case 'accessories':
+        return categoriesData.accessories;
+      case 'men':
+        return categoriesData.men;
+      case 'women':
+        return categoriesData.women;
+      default:
+        return [];
+    }
+  }, [category]);
+
+  const subcategoriesWithCount = useMemo(() => {
+    return currentSubcategories.map(subcat => {
+      let count = 0;
+      
+      if (category === 'men' || category === 'women') {
+        count = products.filter(p => 
+          (p.gender === category || p.gender === 'unisex') &&
+          p.subcategory === subcat.slug.replace(`${category}-`, '')
+        ).length;
+      } else {
+        count = products.filter(p => 
+          p.category === category && 
+          p.subcategory === subcat.slug
+        ).length;
+      }
+      
+      return { ...subcat, count };
+    });
+  }, [currentSubcategories, category]);
+
   const getCurrentFilters = () => {
     switch (category) {
       case "shoes":
@@ -46,13 +103,32 @@ const ProductsPage: React.FC = () => {
         return clothingFilters;
       case "accessories":
         return accessoriesFilters;
+      case "men":
+        return shoesFilters;
+      case "women":
+        return shoesFilters;
       default:
         return shoesFilters;
     }
   };
 
   const applyFilters = useMemo(() => {
-    let result = products.filter((p) => p.category === category);
+    let result = products;
+
+    if (category === 'men' || category === 'women') {
+      result = result.filter((p) => p.gender === category || p.gender === 'unisex');
+    } else {
+      result = result.filter((p) => p.category === category);
+    }
+
+    if (selectedSubcategory) {
+      if (category === 'men' || category === 'women') {
+        const cleanSubcategory = selectedSubcategory.replace(`${category}-`, '');
+        result = result.filter((p) => p.subcategory === cleanSubcategory);
+      } else {
+        result = result.filter((p) => p.subcategory === selectedSubcategory);
+      }
+    }
 
     result = result.filter(
       (p) =>
@@ -78,7 +154,7 @@ const ProductsPage: React.FC = () => {
     }
 
     return result;
-  }, [filters, category]);
+  }, [filters, category, selectedSubcategory]);
 
   const sortedProducts = useMemo(() => {
     const sorted = [...applyFilters];
@@ -101,6 +177,33 @@ const ProductsPage: React.FC = () => {
     setFilteredProducts(sortedProducts);
   }, [sortedProducts]);
 
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const handleScroll = () => {
+        const { scrollLeft, scrollWidth, clientWidth } = container;
+        setShowLeftGradient(scrollLeft > 0);
+        setShowRightGradient(scrollLeft < scrollWidth - clientWidth - 10);
+      };
+      
+      container.addEventListener('scroll', handleScroll);
+      handleScroll();
+      return () => container.removeEventListener('scroll', handleScroll);
+    }
+  }, [currentSubcategories]);
+
+  const handleSubcategoryClick = (subcategory: string | null) => {
+    setSelectedSubcategory(subcategory);
+    
+    const params = new URLSearchParams(searchParams);
+    if (subcategory) {
+      params.set('subcategory', subcategory);
+    } else {
+      params.delete('subcategory');
+    }
+    setSearchParams(params);
+  };
+
   const handleFilterChange = (newFilters: Partial<FilterState>) => {
     setFilters((prev) => ({ ...prev, ...newFilters }));
   };
@@ -120,6 +223,11 @@ const ProductsPage: React.FC = () => {
     });
   };
 
+  const handleApplyMobileFilters = () => {
+    setShowMobileFilter(false);
+  };
+
+
   const getCategoryTitle = () => {
     switch (category) {
       case "shoes":
@@ -128,6 +236,10 @@ const ProductsPage: React.FC = () => {
         return "Одежда";
       case "accessories":
         return "Аксессуары";
+      case "men":
+        return "Для мужчин";
+      case "women":
+        return "Для женщин";
       default:
         return "Все товары";
     }
@@ -143,6 +255,7 @@ const ProductsPage: React.FC = () => {
       <div className={styles.container}>
         <Breadcrumbs items={breadcrumbs} />
 
+        {/* Десктопный заголовок */}
         <div className={styles.header}>
           <h2 className={styles.title}>
             {getCategoryTitle()}
@@ -152,50 +265,79 @@ const ProductsPage: React.FC = () => {
           </h2>
 
           <div className={styles.controls}>
-            <button
-              className={styles.filterToggle}
-              onClick={() => setShowMobileFilter(true)}
-            >
-              <FilterIcon size={20} />
-              Фильтры
-            </button>
-
             <SortDropdown value={sortBy} onChange={setSortBy} />
           </div>
         </div>
 
-        <div className={styles.content}>
-          <aside
-            className={`${styles.sidebar} ${
-              showMobileFilter ? styles.sidebarMobile : ""
-            }`}
-          >
-            {showMobileFilter && (
-              <div className={styles.sidebarHeader}>
-                <h3>Фильтры</h3>
-                <button onClick={() => setShowMobileFilter(false)}>
-                  <X size={24} />
-                </button>
-              </div>
-            )}
+        {/* Мобильный заголовок */}
+        <div className={styles.mobileHeader}>
+          <div className={styles.mobileHeaderTop}>
+            <h2 className={styles.mobileTitle}>{getCategoryTitle()}</h2>
+            <span className={styles.mobileCount}>
+              {filteredProducts.length} товаров
+            </span>
+          </div>
+        </div>
 
+        {/* Блок с подкатегориями */}
+        {currentSubcategories.length > 0 && (
+          <div className={styles.filterCategories}>
+            {showLeftGradient && <div className={styles.gradientLeft} />}
+            {showRightGradient && <div className={styles.gradientRight} />}
+
+            <div ref={scrollContainerRef} className={styles.categoriesScroll}>
+              <button
+                className={`${styles.categoryChip} ${
+                  !selectedSubcategory ? styles.activeChip : ""
+                }`}
+                onClick={() => handleSubcategoryClick(null)}
+              >
+                Все
+              </button>
+
+              {subcategoriesWithCount.map((subcat) => (
+                <button
+                  key={subcat.id}
+                  className={`${styles.categoryChip} ${
+                    selectedSubcategory === subcat.slug ? styles.activeChip : ""
+                  }`}
+                  onClick={() => handleSubcategoryClick(subcat.slug)}
+                >
+                  {subcat.name}
+                  {subcat.count > 0 && (
+                    <span className={styles.chipCount}>{subcat.count}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Кнопки фильтров и сортировки для мобильного */}
+        <div className={styles.mobileControls}>
+          <button
+            className={styles.mobileFilterBtn}
+            onClick={() => setShowMobileFilter(true)}
+          >
+            <SlidersHorizontal size={18} />
+            Фильтры
+          </button>
+
+          <SortDropdown
+            value={sortBy}
+            onChange={setSortBy}
+            isMobileButton={true}
+          />
+        </div>
+
+        <div className={styles.content}>
+          <aside className={styles.sidebar}>
             <FilterSidebar
               filters={getCurrentFilters()}
               activeFilters={filters}
               onChange={handleFilterChange}
               onClear={clearFilters}
             />
-
-            {showMobileFilter && (
-              <div className={styles.sidebarFooter}>
-                <button
-                  className={styles.applyButton}
-                  onClick={() => setShowMobileFilter(false)}
-                >
-                  Показать {filteredProducts.length} товаров
-                </button>
-              </div>
-            )}
           </aside>
 
           <div className={styles.productsGrid}>
@@ -205,8 +347,44 @@ const ProductsPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {showMobileFilter && (
+        <div className={styles.mobileModal}>
+          <div className={styles.modalHeader}>
+            <h3>Фильтры</h3>
+            <button
+              className={styles.modalClose}
+              onClick={() => setShowMobileFilter(false)}
+            >
+              <X size={24} />
+            </button>
+          </div>
+
+          <div className={styles.modalContent}>
+            <FilterSidebar
+              filters={getCurrentFilters()}
+              activeFilters={filters}
+              onChange={handleFilterChange}
+              onClear={clearFilters}
+            />
+          </div>
+
+          <div className={styles.modalFooter}>
+            <button
+              className={styles.applyButton}
+              onClick={handleApplyMobileFilters}
+            >
+              Применить
+            </button>
+            <button className={styles.clearButton} onClick={clearFilters}>
+              Сбросить
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default ProductsPage;
+

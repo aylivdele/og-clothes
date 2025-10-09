@@ -78,7 +78,7 @@ const Navbar = () => {
             <div className={styles.searchContainer}>
               <input
                 type="text"
-                placeholder="Название модели, товар или артикул"
+                placeholder="я хочу купить в OG Clothes...."
                 className={styles.input}
               />
               <Search className={styles.iconsSearch} size={30} />

@@ -1,0 +1,113 @@
+.container {
+    min-height: 100vh;
+    background-color: #f9fafb;
+    padding: 0;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+  
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    aspect-ratio: 4 / 3;
+    display: block;
+    text-decoration: none;
+  }
+  
+  .cardBackground {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+  
+  .card:hover .cardBackground {
+    transform: scale(1.1);
+  }
+  
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+  }
+  
+  .card:hover .overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .hitBadge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #ef4444;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  
+  .titleWrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .title {
+    color: white;
+    font-weight: 900;
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    text-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+  }
+  
+  @media (min-width: 768px) {
+    .title {
+      font-size: 3rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .title {
+      font-size: 3.75rem;
+    }
+  }
+  
+  .card:hover .title {
+    transform: scale(1.1);
+  }
+  
+  .hoverBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover .hoverBar {
+    transform: scaleX(1);
+  }
