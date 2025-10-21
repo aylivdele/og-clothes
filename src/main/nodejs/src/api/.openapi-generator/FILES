@@ -1,0 +1,17 @@
+.gitignore
+.npmignore
+.openapi-generator-ignore
+api.ts
+base.ts
+common.ts
+configuration.ts
+docs/Category.md
+docs/CreateImageRequest.md
+docs/DefaultApi.md
+docs/Image.md
+docs/Item.md
+docs/Property.md
+docs/PropertyQuantity.md
+docs/PropertyValue.md
+git_push.sh
+index.ts
