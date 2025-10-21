@@ -174,33 +174,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Image'
+              allOf:
+                - $ref: '#/components/schemas/Image'
+                - type: object
+                  properties:
+                    data:
+                      type: string
+                      format: binary
+                  required: [data]
       responses:
         '201':
           description: Image added successfully
-    get:
-      operationId: getImages
-      summary: Get images
-      responses:
-        '200':
-          description: A list of images
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
-  /images/{imageId}:
     put:
       operationId: updateImage
       summary: Update an existing image
-      parameters:
-        - name: imageId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       requestBody:
         required: true
         content:
@@ -210,6 +197,7 @@ paths:
       responses:
         '204':
           description: Image added successfully
+  /images/{imageId}:
     delete:
       operationId: deleteImage
       summary: Delete an image
@@ -259,26 +247,6 @@ paths:
               schema:
                 type: string
                 format: binary
-    post:
-      operationId: createImageData
-      summary: Add an image data
-      parameters:
-        - name: imageId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-      responses:
-        '204':
-          description: Image data added successfully
 components:
   schemas:
     Image:

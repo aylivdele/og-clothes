@@ -29,6 +29,7 @@ public class CategoryApiService implements CategoriesApiDelegate {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Void> deleteCategory(Long categoryId) {
         categoryRepository.deleteById(categoryId);
         return ResponseEntity.noContent().build();
@@ -55,6 +56,7 @@ public class CategoryApiService implements CategoriesApiDelegate {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Category> updateCategory(Long categoryId, Category category) {
         var newCategory = modelMapper.map(category, ru.aylivdele.clothes.entity.Category.class);
         categoryRepository.save(newCategory);
