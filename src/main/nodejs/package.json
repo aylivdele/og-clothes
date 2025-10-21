@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rsbuild build",
     "generate-api": "openapi-generator-cli generate -i ./../resources/api/openapi.yml -g typescript-axios -o ./src/api",
+    "build": "npm run generate-api && rsbuild build",
     "dev": "rsbuild dev --open",
     "preview": "rsbuild preview"
   },
